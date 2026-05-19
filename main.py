@@ -76,15 +76,39 @@ def add_book(books):
 
 
 def show_books(books):
-    print("Функция просмотра книг будет добавлена в отдельной ветке.")
+    if not books:
+        print("Список книг пуст.")
+        return
+
+    for index, book in enumerate(books, start=1):
+        print(
+            f"{index}. {book['author']} - {book['title']}, "
+            f"оценка: {book['rating']}, дата: {book['read_date']}"
+        )
 
 
 def show_average_rating(books):
-    print("Средняя оценка будет добавлена в отдельной ветке.")
+    if not books:
+        print("Нет книг для расчёта средней оценки.")
+        return
+
+    total = sum(book["rating"] for book in books)
+    average = total / len(books)
+    print(f"Средняя оценка: {average:.2f}")
 
 
 def show_author_stats(books):
-    print("Статистика по авторам будет добавлена в отдельной ветке.")
+    if not books:
+        print("Нет данных для статистики.")
+        return
+
+    stats = {}
+    for book in books:
+        author = book["author"]
+        stats[author] = stats.get(author, 0) + 1
+
+    for author, count in stats.items():
+        print(f"{author}: {count}")
 
 
 def delete_book(books):
