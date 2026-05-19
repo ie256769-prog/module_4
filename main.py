@@ -112,7 +112,25 @@ def show_author_stats(books):
 
 
 def delete_book(books):
-    print("Удаление книги будет добавлено в отдельной ветке.")
+    if not books:
+        print("Список книг пуст.")
+        return
+
+    show_books(books)
+    value = input("Введите номер книги для удаления: ").strip()
+
+    if not value.isdigit():
+        print("Ошибка: нужно ввести номер книги.")
+        return
+
+    index = int(value)
+    if not 1 <= index <= len(books):
+        print("Книги с таким номером нет.")
+        return
+
+    deleted_book = books.pop(index - 1)
+    save_books(books)
+    print(f"Удалена книга: {deleted_book['author']} - {deleted_book['title']}")
 
 
 def show_menu():
